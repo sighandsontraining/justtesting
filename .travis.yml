@@ -4,6 +4,6 @@ env:
     secure: cxDvioCn8gkwCXaqpl95BIYBBNJPxb4JYznxBqBok0cVTLRr2D6qunKwBV0C+SwnNAesCWC5/iWQuNc/NLt3q4MqZ1u5dmBYsd15RHsKJvatWoBh/llWwTrKS5fW5B+v+D3AQNpkkFIzKCtidHbhcxqzcfvWYS80Wu5ViK5OvzE=
 
 after_success:
-  - "openssl aes-256-cbc -k '$DEPLOY_KEY' -in config/deploy_id_rsa_enc_travis -d -a -out /tmp/deploy_id_rsa"
+  - "openssl aes-256-cbc -k $DEPLOY_KEY -in config/deploy_id_rsa_enc_travis -d -a -out /tmp/deploy_id_rsa"
   - "chmod 0600 /tmp/deploy_id_rsa"
   - "scp -o StrictHostKeyChecking=no -i /tmp/deploy_id_rsa target/justtesting-*.jar root@104.131.92.192:."
