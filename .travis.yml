@@ -5,4 +5,4 @@ env:
 
 after_success:
   - "openssl aes-256-cbc -k '$DEPLOY_KEY' -in config/deploy_id_rsa_enc_travis -d -a -out /tmp/deploy_id_rsa"
-  - "scp -i /tmp/deploy_id_rsa target/justtesting-*.jar root@104.131.92.192:."
+  - "scp -o StrictHostKeyChecking=no -i /tmp/deploy_id_rsa target/justtesting-*.jar root@104.131.92.192:."
