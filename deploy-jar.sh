@@ -1,7 +1,22 @@
 #!/bin/sh
+# Deploys a JAR file to your group's cloud server.
+# DO NOT MODIFY THIS FILE
+GROUP=justtesting
+HOSTNAME=sighandsontraining-$GROUP.ydns.eu
+
+if [ "$#" -ne "1" ]
+then
+    echo "This script must be used to deploy a JAR file to your group's cloud"
+    echo "server."
+    echo ""
+    echo "usage: $0 <jar-file>"
+    exit 1
+fi
+
 if [ -z "$DEPLOY_KEY" ]
 then
     echo "Environment variable DEPLOY_KEY not found!"
+    echo "This variable will be set by TravisCI"
     exit 1
 fi
 
@@ -46,6 +61,6 @@ EOT
 openssl aes-256-cbc -k $DEPLOY_KEY -in /tmp/deploy_id_rsa_enc -d -a -out \
 /tmp/deploy_id_rsa
 chmod 0600 /tmp/deploy_id_rsa
-scp -o StrictHostKeyChecking=no -i /tmp/deploy_id_rsa target/justtesting-*.jar justtesting@justtesting.ydns.eu:.
+scp -o StrictHostKeyChecking=no -i /tmp/deploy_id_rsa $1 $GROUP@$HOSTNAME:.
 rm -f /tmp/deploy_id_rsa
 rm -f /tmp/deploy_id_rsa_enc
