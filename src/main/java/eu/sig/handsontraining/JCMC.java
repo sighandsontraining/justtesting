@@ -9,6 +9,10 @@ import com.puppycrawl.tools.checkstyle.grammars.GeneratedJavaLexer;
 
 public class JCMC {
 
+    public static void main(String[] args) {
+        System.out.println("Good luck class!");
+    }
+
     public int countLinesOfCode(String pieceOfCode) throws TokenStreamException {
         GeneratedJavaLexer lexer = new GeneratedJavaLexer(new StringReader(pieceOfCode));
         // Hint: ANTLR needs a comment listener! 
