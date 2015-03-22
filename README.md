@@ -1,4 +1,4 @@
-# justtesting
-Just testing the setup ourselves
+# SIG Hands on training
+The repository for your team
 
-![Travis CI status](https://travis-ci.org/sighandsontraining/justtesting.svg?branch=master)
+![Travis CI build status](https://travis-ci.org/sighandsontraining/justtesting.svg?branch=master)
