@@ -10,7 +10,7 @@ Objective of the Java Code Metrics Calculator (JCMC) is to be able to determine 
 
 JCMC will be run from the commandline, taking a directory (containing Java source code) as its input, and will provide a text file as output, containing metrics.
 
-JCMC will be robust, and it will should not fail when encountering non-compiling Java files.
+JCMC will be robust, and it will not fail when encountering non-compiling Java files.
 
 ### Risks
 
