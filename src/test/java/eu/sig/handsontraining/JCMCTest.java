@@ -17,14 +17,14 @@ public class JCMCTest {
     public void testCountLinesOfCodeCommentOnly() throws Exception {
         JCMC jcmc = new JCMC();
 
-        // assertEquals(0, jcmc.countLinesOfCode("/* Hello world */"));
+        assertEquals(0, jcmc.countLinesOfCode("/* Hello world */"));
     }
 
     @Test
     public void testCountLinesOfCodeSingleLineCommentOnly() throws Exception {
         JCMC jcmc = new JCMC();
 
-        // assertEquals(0, jcmc.countLinesOfCode("// Hello world"));
+        assertEquals(0, jcmc.countLinesOfCode("// Hello world"));
     }
 
     @Test
@@ -35,7 +35,7 @@ public class JCMCTest {
         code += "class Bar {\n";
         code += "}\n";
 
-        //        assertEquals(3, jcmc.countLinesOfCode(code));
+        assertEquals(3, jcmc.countLinesOfCode(code));
     }
 
 }
