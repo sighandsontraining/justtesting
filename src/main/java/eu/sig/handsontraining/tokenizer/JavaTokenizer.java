@@ -10,11 +10,9 @@ import antlr.TokenStreamException;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import com.puppycrawl.tools.checkstyle.grammars.GeneratedJavaLexer;
 
-import eu.sig.handsontraining.DoNothingCommentListener;
+public class JavaTokenizer implements Tokenizer {
 
-public class JavaTokenizer {
-
-    public static List<Token> tokenize(String pieceOfCode, boolean filterComments) {
+    public List<Token> tokenize(String pieceOfCode, boolean filterComments) {
         List<Token> result = new ArrayList<Token>();
         GeneratedJavaLexer lexer = new GeneratedJavaLexer(new StringReader(pieceOfCode));
         lexer.setCommentListener(new DoNothingCommentListener());
@@ -32,7 +30,7 @@ public class JavaTokenizer {
         return result;
     }
 
-    private static Token getNextToken(GeneratedJavaLexer lexer) {
+    private Token getNextToken(GeneratedJavaLexer lexer) {
         try {
             return lexer.nextToken();
         } catch (TokenStreamException e) {
@@ -40,7 +38,7 @@ public class JavaTokenizer {
         }
     }
 
-    private static boolean isCommentToken(Token nextToken) {
+    private boolean isCommentToken(Token nextToken) {
         return nextToken.getType() == TokenTypes.BLOCK_COMMENT_BEGIN
             || nextToken.getType() == TokenTypes.SINGLE_LINE_COMMENT;
     }

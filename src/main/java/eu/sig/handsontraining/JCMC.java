@@ -18,7 +18,7 @@ public class JCMC {
             System.out.println(rootDirectory.getAbsolutePath() + " is not a directory!");
         }
         FileTree fileTree = new FileTree(rootDirectory);
-        System.out.println(fileTree.createJavaMeasurementReport(new LinesOfCode()));
+        System.out.println(ReportGenerator.createJavaMeasurementReport(fileTree, new LinesOfCode()));
     }
 
 }

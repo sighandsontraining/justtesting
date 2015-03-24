@@ -14,13 +14,9 @@ public class FileNode implements FileTreeNode {
         this.file = file;
     }
 
+    @Override
     public File getFile() {
         return file;
-    }
-
-    @Override
-    public String getPath() {
-        return file.getAbsolutePath();
     }
 
     @Override
@@ -36,4 +32,5 @@ public class FileNode implements FileTreeNode {
     public String getSource() throws IOException {
         return new String(Files.readAllBytes(file.toPath()));
     }
+
 }

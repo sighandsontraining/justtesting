@@ -5,13 +5,11 @@ import java.util.List;
 import java.util.Set;
 
 import antlr.Token;
-import eu.sig.handsontraining.tokenizer.JavaTokenizer;
 
 public class LinesOfCode implements Measurement {
 
     @Override
-    public int measure(String pieceOfCode) {
-        List<Token> tokens = JavaTokenizer.tokenize(pieceOfCode, true);
+    public int measure(List<Token> tokens) {
         Set<Integer> lines = new HashSet<Integer>();
         for (Token token : tokens) {
             lines.add(token.getLine());

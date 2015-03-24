@@ -1,7 +1,11 @@
 package eu.sig.handsontraining.measurement;
 
+import java.util.List;
+
+import antlr.Token;
+
 public interface Measurement {
 
-    int measure(String pieceOfCode);
+    int measure(List<Token> tokens);
     
 }

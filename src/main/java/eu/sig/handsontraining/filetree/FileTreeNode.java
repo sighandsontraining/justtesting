@@ -1,9 +1,10 @@
 package eu.sig.handsontraining.filetree;
 
+import java.io.File;
 import java.util.List;
 
 public interface FileTreeNode {
-    String getPath();
+    File getFile();
 
     boolean isDirectory();
 

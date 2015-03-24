@@ -13,14 +13,14 @@ public class JavaTokenizerTest extends JavaTokenizer {
 
     @Test
     public void testEmtySource() {
-        List<Token> tokens = JavaTokenizer.tokenize("", false);
+        List<Token> tokens = new JavaTokenizer().tokenize("", false);
 
         assertTrue(tokens.isEmpty());
     }
 
     @Test
     public void testSingleToken() {
-        List<Token> tokens = JavaTokenizer.tokenize("class", false);
+        List<Token> tokens = new JavaTokenizer().tokenize("class", false);
 
         assertEquals(1, tokens.size());
     }

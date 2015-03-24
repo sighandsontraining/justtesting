@@ -24,10 +24,10 @@ public class FileTreeTest {
     public void testEmptyDirectory() {
         File tempDir = Files.createTempDir();
 
-        FileTree fileTree = new FileTree(tempDir.getAbsolutePath());
+        FileTree fileTree = new FileTree(tempDir);
 
         assertNotNull(fileTree);
-        assertEquals(tempDir.getAbsolutePath(), fileTree.getRoot().getPath());
+        assertEquals(tempDir, fileTree.getRoot().getFile());
         assertEquals(0, fileTree.getRoot().getChildren().size());
     }
 
@@ -37,7 +37,7 @@ public class FileTreeTest {
         createTempFile(tmpDir, "Bar.java");
         createTempFile(tmpDir, "Foo.java");
 
-        FileTree fileTree = new FileTree(tmpDir.getAbsolutePath());
+        FileTree fileTree = new FileTree(tmpDir);
 
         List<FileTreeNode> children = fileTree.getRoot().getChildren();
 

@@ -1,4 +1,4 @@
-package eu.sig.handsontraining;
+package eu.sig.handsontraining.tokenizer;
 
 import com.puppycrawl.tools.checkstyle.grammars.CommentListener;
 

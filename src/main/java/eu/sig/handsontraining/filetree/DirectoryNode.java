@@ -5,16 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DirectoryNode implements FileTreeNode {
-    private final File path;
+    private final File file;
     private final List<FileTreeNode> children = new ArrayList<FileTreeNode>();
 
-    DirectoryNode(File path) {
-        this.path = path;
+    DirectoryNode(File file) {
+        this.file = file;
     }
 
     @Override
-    public String getPath() {
-        return path.getAbsolutePath();
+    public File getFile() {
+        return file;
     }
 
     void addChild(FileTreeNode node) {
