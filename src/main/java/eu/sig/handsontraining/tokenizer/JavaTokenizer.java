@@ -11,6 +11,9 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import com.puppycrawl.tools.checkstyle.grammars.GeneratedJavaLexer;
 
 public class JavaTokenizer implements Tokenizer {
+    public static final Tokenizer INSTANCE = new JavaTokenizer();
+
+    private JavaTokenizer() {}
 
     public List<Token> tokenize(String pieceOfCode, boolean filterComments) {
         List<Token> result = new ArrayList<Token>();

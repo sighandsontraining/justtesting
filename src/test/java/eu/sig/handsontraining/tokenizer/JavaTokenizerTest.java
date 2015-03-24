@@ -9,18 +9,18 @@ import org.junit.Test;
 
 import antlr.Token;
 
-public class JavaTokenizerTest extends JavaTokenizer {
+public class JavaTokenizerTest {
 
     @Test
     public void testEmtySource() {
-        List<Token> tokens = new JavaTokenizer().tokenize("", false);
+        List<Token> tokens = JavaTokenizer.INSTANCE.tokenize("", false);
 
         assertTrue(tokens.isEmpty());
     }
 
     @Test
     public void testSingleToken() {
-        List<Token> tokens = new JavaTokenizer().tokenize("class", false);
+        List<Token> tokens = JavaTokenizer.INSTANCE.tokenize("class", false);
 
         assertEquals(1, tokens.size());
     }

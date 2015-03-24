@@ -3,9 +3,8 @@ package eu.sig.handsontraining.filetree;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.commons.lang3.NotImplementedException;
 
 public class FileNode implements FileTreeNode {
     private final File file;
@@ -21,7 +20,7 @@ public class FileNode implements FileTreeNode {
 
     @Override
     public List<FileTreeNode> getChildren() {
-        throw new NotImplementedException("A file has no children!");
+        return new ArrayList<FileTreeNode>();
     }
 
     @Override
@@ -29,6 +28,7 @@ public class FileNode implements FileTreeNode {
         return false;
     }
 
+    @Override
     public String getSource() throws IOException {
         return new String(Files.readAllBytes(file.toPath()));
     }

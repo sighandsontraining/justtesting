@@ -12,7 +12,7 @@ import eu.sig.handsontraining.tokenizer.JavaTokenizer;
 public class LinesOfCodeTest {
 
     private List<Token> tokenize(String pieceOfCode) {
-        return new JavaTokenizer().tokenize(pieceOfCode, true);
+        return JavaTokenizer.INSTANCE.tokenize(pieceOfCode, true);
     }
 
     @Test

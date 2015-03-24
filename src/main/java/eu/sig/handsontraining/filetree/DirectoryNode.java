@@ -1,8 +1,11 @@
 package eu.sig.handsontraining.filetree;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.lang3.NotImplementedException;
 
 public class DirectoryNode implements FileTreeNode {
     private final File file;
@@ -24,6 +27,11 @@ public class DirectoryNode implements FileTreeNode {
     @Override
     public List<FileTreeNode> getChildren() {
         return children;
+    }
+
+    @Override
+    public String getSource() throws IOException {
+        throw new NotImplementedException("A directory has no source!");
     }
 
     @Override
