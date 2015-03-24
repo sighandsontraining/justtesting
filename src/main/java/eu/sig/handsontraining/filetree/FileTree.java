@@ -1,6 +1,7 @@
 package eu.sig.handsontraining.filetree;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.util.List;
 
@@ -36,24 +37,45 @@ public class FileTree {
         }
     }
 
-    public String createMeasurementReport(Measurement analysis) throws IOException {
+    public String createJavaMeasurementReport(Measurement analysis) throws IOException {
         StringBuffer report = new StringBuffer();
-        visitTree(root, analysis, report);
+        int totalLinesOfCode = visitTree(root, analysis, report, new JavaFileFilter());
+        report.append("\n");
+        report.append("Total lines of Java code: " + totalLinesOfCode + "\n");
         return report.toString();
     }
 
-    private int visitTree(FileTreeNode node, Measurement analysis, StringBuffer report) throws IOException {
+    private int visitTree(FileTreeNode node, Measurement analysis, StringBuffer report, FileFilter fileFilter)
+        throws IOException {
         int result = 0;
         if (node.isDirectory()) {
             DirectoryNode directoryNode = ((DirectoryNode)node);
-            List<FileTreeNode> children = directoryNode.getChildren();
-            for (FileTreeNode child : children) {
-                result += visitTree(child, analysis, report);
-            }
+            result = visitDirectory(directoryNode, analysis, report, fileFilter);
         } else {
-            result = analysis.measure(((FileNode)node).getSource());
+            FileNode fileNode = ((FileNode)node);
+            result = visitFile(fileNode, analysis, report, fileFilter);
         }
-        report.append(node.getPath() + ": " + result + "\n");
+        return result;
+    }
+
+    private int visitDirectory(DirectoryNode directoryNode, Measurement analysis, StringBuffer report,
+        FileFilter fileFilter) throws IOException {
+        int result = 0;
+        List<FileTreeNode> children = directoryNode.getChildren();
+        for (FileTreeNode child : children) {
+            result += visitTree(child, analysis, report, fileFilter);
+        }
+        report.append(directoryNode.getPath() + ": " + result + "\n");
+        return result;
+    }
+
+    private int visitFile(FileNode fileNode, Measurement analysis, StringBuffer report, FileFilter fileFilter)
+        throws IOException {
+        int result = 0;
+        if (fileFilter.accept(fileNode.getFile())) {
+            result = analysis.measure(fileNode.getSource());
+            report.append(fileNode.getPath() + ": " + result + "\n");
+        }
         return result;
     }
 

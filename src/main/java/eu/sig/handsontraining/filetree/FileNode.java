@@ -14,6 +14,10 @@ public class FileNode implements FileTreeNode {
         this.file = file;
     }
 
+    public File getFile() {
+        return file;
+    }
+
     @Override
     public String getPath() {
         return file.getAbsolutePath();
