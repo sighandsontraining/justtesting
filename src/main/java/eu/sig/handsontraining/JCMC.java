@@ -1,34 +1,24 @@
 package eu.sig.handsontraining;
 
-import java.io.StringReader;
-import java.util.HashSet;
-import java.util.Set;
+import java.io.File;
+import java.io.IOException;
 
-import antlr.Token;
-import antlr.TokenStreamException;
-
-import com.puppycrawl.tools.checkstyle.api.TokenTypes;
-import com.puppycrawl.tools.checkstyle.grammars.GeneratedJavaLexer;
+import eu.sig.handsontraining.filetree.FileTree;
+import eu.sig.handsontraining.measurement.LinesOfCode;
 
 public class JCMC {
 
-    public int countLinesOfCode(String pieceOfCode) throws TokenStreamException {
-        GeneratedJavaLexer lexer = new GeneratedJavaLexer(new StringReader(pieceOfCode));
-        lexer.setCommentListener(new JCMCCommentListener());
-        Token nextToken = lexer.nextToken();
-        Set<Integer> lines = new HashSet<Integer>();
-        while (nextToken != null && nextToken.getType() != antlr.Token.EOF_TYPE) {
-            if (!isCommentToken(nextToken)) {
-                lines.add(nextToken.getLine());
-            }
-            nextToken = lexer.nextToken();
+    public static void main(String[] args) throws IOException {
+        if (args.length < 1) {
+            System.out.println("usage: JCMC <directory>");
+            System.exit(1);
         }
-        return lines.size();
-    }
-
-    private boolean isCommentToken(Token nextToken) {
-        return nextToken.getType() == TokenTypes.BLOCK_COMMENT_BEGIN
-            || nextToken.getType() == TokenTypes.SINGLE_LINE_COMMENT;
+        File rootDirectory = new File(args[0]);
+        if (!rootDirectory.isDirectory()) {
+            System.out.println(rootDirectory.getAbsolutePath() + " is not a directory!");
+        }
+        FileTree fileTree = new FileTree(rootDirectory);
+        System.out.println(fileTree.createMeasurementReport(new LinesOfCode()));
     }
 
 }

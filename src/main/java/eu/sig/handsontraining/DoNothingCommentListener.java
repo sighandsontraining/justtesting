@@ -2,7 +2,7 @@ package eu.sig.handsontraining;
 
 import com.puppycrawl.tools.checkstyle.grammars.CommentListener;
 
-public class JCMCCommentListener implements CommentListener {
+public class DoNothingCommentListener implements CommentListener {
 
     @Override
     public void reportSingleLineComment(String type, int startLineNo, int startColNo) {}

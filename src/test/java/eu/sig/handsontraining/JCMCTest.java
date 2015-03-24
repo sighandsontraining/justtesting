@@ -1,41 +1,32 @@
 package eu.sig.handsontraining;
 
-import static org.junit.Assert.assertEquals;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import org.junit.Test;
 
+import com.google.common.io.Files;
+
 public class JCMCTest {
 
-    @Test
-    public void testCountLinesOfCodeEmpty() throws Exception {
-        JCMC jcmc = new JCMC();
-
-        assertEquals(0, jcmc.countLinesOfCode(""));
+    private void createTempFile(File parent, String name, String contents) throws IOException {
+        File tmpFile = new File(parent, name);
+        tmpFile.deleteOnExit();
+        FileWriter writer = new FileWriter(tmpFile);
+        writer.write(contents);
+        writer.close();
     }
 
     @Test
-    public void testCountLinesOfCodeCommentOnly() throws Exception {
-        JCMC jcmc = new JCMC();
+    public void testSmallCodebase() throws Exception {
+        File root = Files.createTempDir();
+        File srcDir = new File(root, "src");
+        srcDir.mkdir();
+        createTempFile(srcDir, "Bar.java", "public class Bar { }");
+        createTempFile(srcDir, "Foo.java", "public class Foo { }");
 
-        assertEquals(0, jcmc.countLinesOfCode("/* Hello world */"));
-    }
-
-    @Test
-    public void testCountLinesOfCodeSingleLineCommentOnly() throws Exception {
-        JCMC jcmc = new JCMC();
-
-        assertEquals(0, jcmc.countLinesOfCode("// Hello world"));
-    }
-
-    @Test
-    public void testCountLinesOfCode() throws Exception {
-        JCMC jcmc = new JCMC();
-        String code = "";
-        code += "package foo;\n";
-        code += "class Bar {\n";
-        code += "}\n";
-
-        assertEquals(3, jcmc.countLinesOfCode(code));
+        JCMC.main(new String[] {root.getAbsolutePath()});
     }
 
 }

@@ -1,4 +1,4 @@
-package eu.sig.handsontraining;
+package eu.sig.handsontraining.filetree;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -8,12 +8,13 @@ public class DirectoryNode implements FileTreeNode {
     private final File path;
     private final List<FileTreeNode> children = new ArrayList<FileTreeNode>();
 
-    public DirectoryNode(File path) {
+    DirectoryNode(File path) {
         this.path = path;
     }
 
-    public File getPath() {
-        return path;
+    @Override
+    public String getPath() {
+        return path.getAbsolutePath();
     }
 
     void addChild(FileTreeNode node) {
