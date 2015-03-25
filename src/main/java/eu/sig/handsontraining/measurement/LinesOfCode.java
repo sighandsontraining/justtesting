@@ -7,6 +7,7 @@ import java.util.Set;
 import antlr.Token;
 
 public class LinesOfCode implements Measurement {
+    public static final String METRIC_KEY = "Lines of Code";
 
     @Override
     public int measure(List<Token> tokens) {

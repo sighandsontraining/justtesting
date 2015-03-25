@@ -1,69 +1,33 @@
 package eu.sig.handsontraining.reporting;
 
-import java.io.FileFilter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.commons.lang3.tuple.Pair;
-
-import antlr.Token;
-import eu.sig.handsontraining.filetree.FileTreeNode;
-import eu.sig.handsontraining.measurement.Measurement;
-import eu.sig.handsontraining.tokenizer.JavaTokenizer;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class ReportGenerator {
-    private final FileFilter fileFilter;
+    private Map<String, Map<String, Integer>> metricsMap = new HashMap<String, Map<String, Integer>>();
+    private Set<String> metricKeys = new HashSet<String>();
 
-    public ReportGenerator(FileFilter fileFilter) {
-        this.fileFilter = fileFilter;
-    }
-
-    /**
-     * Returns a measurement report that contains measurements on the file and the directory 
-     * level for the given file tree.
-     */
-    public String createMeasurementReport(FileTreeNode node, Measurement measurement) throws IOException {
-        StringBuffer report = new StringBuffer();
-        List<Pair<String, Integer>> measurements = measure(node, measurement);
-        for (Pair<String, Integer> entry : measurements) {
-            report.append(entry.getKey() + ": " + entry.getValue() + "\n");
-        }
-        return report.toString();
-    }
-
-    private List<Pair<String, Integer>> measure(FileTreeNode node, Measurement measurement) throws IOException {
-        List<Pair<String, Integer>> result = new ArrayList<Pair<String, Integer>>();
-        int totalLinesOfCode = traverse(node, measurement, result);
-        result.add(Pair.of("SYSTEM", totalLinesOfCode));
-        return result;
-    }
-
-    private int traverse(FileTreeNode node, Measurement analysis, List<Pair<String, Integer>> measurementsList)
-        throws IOException {
-        int result = 0;
-        if (node.isDirectory()) {
-            List<FileTreeNode> children = node.getChildren();
-            for (FileTreeNode fileTreeNode : children) {
-                result += traverse(fileTreeNode, analysis, measurementsList);
+    public void addMeasurements(Map<String, Integer> measurements, String metricKey) {
+        for (String key : measurements.keySet()) {
+            if (metricsMap.containsKey(key)) {
+                metricsMap.get(key).put(metricKey, measurements.get(key));
+            } else {
+                HashMap<String, Integer> keyValueMap = new HashMap<String, Integer>();
+                keyValueMap.put(metricKey, measurements.get(key));
+                metricsMap.put(key, keyValueMap);
             }
-            measurementsList.add(Pair.of(node.getFile().getAbsolutePath(), result));
-        } else {
-            result = visitFile(node, analysis, measurementsList);
         }
-        return result;
+        metricKeys.add(metricKey);
     }
 
-    private int visitFile(FileTreeNode node, Measurement analysis, List<Pair<String, Integer>> measurementsList)
-        throws IOException {
-        int result = 0;
-        if (fileFilter.accept(node.getFile())) {
-            String source = node.getSource();
-            List<Token> tokens = JavaTokenizer.INSTANCE.tokenize(source, true);
-            result = analysis.measure(tokens);
-            measurementsList.add(Pair.of(node.getFile().getAbsolutePath(), result));
+    public void generateReports() throws IOException {
+        ReportGeneratorHelper.generateCsvFile(metricsMap);
+        for (String metric : metricKeys) {
+            ReportGeneratorHelper.displayTop10(metricsMap, metric);
         }
-        return result;
+        ReportGeneratorHelper.displayCodebaseValues(metricsMap);
     }
-
 }

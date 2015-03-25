@@ -2,11 +2,13 @@ package eu.sig.handsontraining;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
 import eu.sig.handsontraining.filetree.FileTree;
 import eu.sig.handsontraining.filetree.JavaFileFilter;
 import eu.sig.handsontraining.measurement.LinesOfCode;
 import eu.sig.handsontraining.measurement.McCabe;
+import eu.sig.handsontraining.measurement.MeasurementRunner;
 import eu.sig.handsontraining.reporting.ReportGenerator;
 
 public class JCMC {
@@ -21,9 +23,13 @@ public class JCMC {
             System.out.println(rootDirectory.getAbsolutePath() + " is not a directory!");
         }
         FileTree fileTree = new FileTree(rootDirectory);
-        ReportGenerator reportGenerator = new ReportGenerator(JavaFileFilter.INSTANCE);
-        System.out.println(reportGenerator.createMeasurementReport(fileTree.getRoot(), new LinesOfCode()));
-        System.out.println(reportGenerator.createMeasurementReport(fileTree.getRoot(), new McCabe()));
+        MeasurementRunner measurementRunner = new MeasurementRunner(fileTree, JavaFileFilter.INSTANCE);
+        Map<String, Integer> locMeasurements = measurementRunner.runMeasurement(new LinesOfCode());
+        Map<String, Integer> mccabeMeasurements = measurementRunner.runMeasurement(new McCabe());
+        ReportGenerator reportGenerator = new ReportGenerator();
+        reportGenerator.addMeasurements(locMeasurements, LinesOfCode.METRIC_KEY);
+        reportGenerator.addMeasurements(mccabeMeasurements, McCabe.METRIC_KEY);
+        reportGenerator.generateReports();
     }
 
 }

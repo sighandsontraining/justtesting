@@ -9,6 +9,7 @@ import antlr.Token;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 public class McCabe implements Measurement {
+    public static final String METRIC_KEY = "McCabe";
 
     private static final Set<Integer> MCCABE_TOKENS = new HashSet<Integer>();
     static {
