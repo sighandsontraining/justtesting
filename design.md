@@ -32,6 +32,19 @@ the high-level architecture, containing the main components of our solution is d
 
 ![Alt text](jcmc-architecture.png "JCMC architecture")
 
+The main components of the architecture are:
+
+<dl>
+  <dt>JCMC.java</dt>
+  <dd>Entry point of the program. Creates a file tree for the given codebase directory and calls the measurement runner to do the LOC and McCabe analyses. It also calls the report generator for the output</dd>
+  <dt>File Tree</dt>
+  <dd>A data structure to hold all the directories and files of the given codebase directory. This structure is traversed by the measurement runner</dt>
+  <dt>MeasurementRunner</dd>
+  <dd>Runs a measurement (e.g. Lines of Code, McCabe) over all file nodes in a file tree, aggeregating metrics to directory nodes</dd>
+  <dt>Measurement<dt>
+  <dd>@@TODO</dd>
+</dl>
+
 ### Technology
 
 The use of Java as the programming language is mandated by the DHL Training Module II, and cannot be deviated from. 
