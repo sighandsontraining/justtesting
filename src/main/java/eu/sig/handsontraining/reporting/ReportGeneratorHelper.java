@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
 import eu.sig.handsontraining.measurement.MeasurementRunnerHelper;
@@ -62,13 +63,13 @@ public class ReportGeneratorHelper {
         File outputFile = new File("metrics.csv");
         FileWriter fileWriter = new FileWriter(outputFile);
         Set<String> keys = metricsMap.keySet();
-        fileWriter.write("File," + String.join(",", metricKeys) + "\n");
+        fileWriter.write("File," + StringUtils.join(",", metricKeys) + "\n");
         for (String key : keys) {
             List<String> metrics = new ArrayList<String>();
             for (String metricKey : metricKeys) {
                 metrics.add(metricsMap.get(key).get(metricKey).toString());
             }
-            fileWriter.write(key + "," + String.join(",", metrics) + "\n");
+            fileWriter.write(key + "," + StringUtils.join(",", metrics) + "\n");
         }
         fileWriter.close();
     }
