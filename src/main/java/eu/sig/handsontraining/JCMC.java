@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 
 import eu.sig.handsontraining.filetree.FileTree;
+import eu.sig.handsontraining.filetree.JavaFileFilter;
 import eu.sig.handsontraining.measurement.LinesOfCode;
+import eu.sig.handsontraining.measurement.McCabe;
 import eu.sig.handsontraining.reporting.ReportGenerator;
 
 public class JCMC {
@@ -19,7 +21,9 @@ public class JCMC {
             System.out.println(rootDirectory.getAbsolutePath() + " is not a directory!");
         }
         FileTree fileTree = new FileTree(rootDirectory);
-        System.out.println(ReportGenerator.createJavaMeasurementReport(fileTree.getRoot(), new LinesOfCode()));
+        ReportGenerator reportGenerator = new ReportGenerator(JavaFileFilter.INSTANCE);
+        System.out.println(reportGenerator.createMeasurementReport(fileTree.getRoot(), new LinesOfCode()));
+        System.out.println(reportGenerator.createMeasurementReport(fileTree.getRoot(), new McCabe()));
     }
 
 }
