@@ -35,14 +35,16 @@ the high-level architecture, containing the main components of our solution is d
 The main components of the architecture are:
 
 <dl>
-  <dt>JCMC.java</dt>
+  <dt>JCMC.java (eu.sig.handsontraining)</dt>
   <dd>Entry point of the program. Creates a file tree for the given codebase directory and calls the measurement runner to do the LOC and McCabe analyses. It also calls the report generator for the output</dd>
-  <dt>File Tree</dt>
+  <dt>File Tree (eu.sig.handsontraining.filetree)</dt>
   <dd>A data structure to hold all the directories and files of the given codebase directory. This structure is traversed by the measurement runner</dt>
-  <dt>MeasurementRunner</dd>
+  <dt>MeasurementRunner (eu.sig.handsontraining.measurement)</dd>
   <dd>Runs a measurement (e.g. Lines of Code, McCabe) over all file nodes in a file tree, aggeregating metrics to directory nodes</dd>
-  <dt>Measurement<dt>
-  <dd>@@TODO</dd>
+  <dt>Measurement (eu.sig.handsontraining.measurement)<dt>
+  <dd>Contains the metric calculators for Lines of Code and McCabe.</dd>
+  <dt>Tokenizer (eu.sig.handsontraining.tokenizer)</dt>
+  <dd>Contains a Java
 </dl>
 
 ### Technology
