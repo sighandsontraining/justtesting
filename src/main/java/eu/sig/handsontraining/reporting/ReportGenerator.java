@@ -1,14 +1,14 @@
 package eu.sig.handsontraining.reporting;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class ReportGenerator {
     private Map<String, Map<String, Integer>> metricsMap = new HashMap<String, Map<String, Integer>>();
-    private Set<String> metricKeys = new HashSet<String>();
+    private List<String> metricKeys = new ArrayList<String>();
 
     public void addMeasurements(Map<String, Integer> measurements, String metricKey) {
         for (String key : measurements.keySet()) {
@@ -24,7 +24,7 @@ public class ReportGenerator {
     }
 
     public void generateReports() throws IOException {
-        ReportGeneratorHelper.generateCsvFile(metricsMap);
+        ReportGeneratorHelper.generateCsvFile(metricsMap, metricKeys);
         for (String metric : metricKeys) {
             ReportGeneratorHelper.displayTop10(metricsMap, metric);
         }

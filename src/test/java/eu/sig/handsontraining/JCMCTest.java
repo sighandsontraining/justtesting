@@ -29,4 +29,15 @@ public class JCMCTest {
         JCMC.main(new String[] {root.getAbsolutePath()});
     }
 
+    @Test
+    public void testNonValidJavaCode() throws Exception {
+        File root = Files.createTempDir();
+        File srcDir = new File(root, "src");
+        srcDir.mkdir();
+        createTempFile(srcDir, "Bar.java", "publiccc ccclass Bar { }");
+        createTempFile(srcDir, "Foo.java", "public class Foo {");
+
+        JCMC.main(new String[] {root.getAbsolutePath()});
+    }
+
 }

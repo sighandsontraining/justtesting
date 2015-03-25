@@ -12,9 +12,7 @@ import java.util.Set;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import eu.sig.handsontraining.measurement.LinesOfCode;
-import eu.sig.handsontraining.measurement.McCabe;
-import eu.sig.handsontraining.measurement.MeasurementRunner;
+import eu.sig.handsontraining.measurement.MeasurementRunnerHelper;
 
 public class ReportGeneratorHelper {
 
@@ -50,7 +48,7 @@ public class ReportGeneratorHelper {
     }
 
     static void displayCodebaseValues(Map<String, Map<String, Integer>> metricsMap) {
-        Map<String, Integer> systemMetrics = metricsMap.get(MeasurementRunner.SYSTEM_LEVEL);
+        Map<String, Integer> systemMetrics = metricsMap.get(MeasurementRunnerHelper.SYSTEM_LEVEL);
         Set<String> metricKeys = systemMetrics.keySet();
         System.out.println("Total codebase metrics:");
         for (String metricKey : metricKeys) {
@@ -59,13 +57,18 @@ public class ReportGeneratorHelper {
         }
     }
 
-    static void generateCsvFile(Map<String, Map<String, Integer>> metricsMap) throws IOException {
+    static void generateCsvFile(Map<String, Map<String, Integer>> metricsMap, List<String> metricKeys)
+        throws IOException {
         File outputFile = new File("metrics.csv");
         FileWriter fileWriter = new FileWriter(outputFile);
         Set<String> keys = metricsMap.keySet();
+        fileWriter.write("File," + String.join(",", metricKeys) + "\n");
         for (String key : keys) {
-            fileWriter.write(key + "," + metricsMap.get(key).get(LinesOfCode.METRIC_KEY) + ","
-                + metricsMap.get(key).get(McCabe.METRIC_KEY) + "\n");
+            List<String> metrics = new ArrayList<String>();
+            for (String metricKey : metricKeys) {
+                metrics.add(metricsMap.get(key).get(metricKey).toString());
+            }
+            fileWriter.write(key + "," + String.join(",", metrics) + "\n");
         }
         fileWriter.close();
     }
