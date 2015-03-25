@@ -27,6 +27,10 @@ The risk of this objective not being achieved is mitigated by instructors being 
 
 ::Describe your solution here. Be sure to describe (important) decisions, their reasons, consequences and any trade-offs involved::
 
+### High-level architecture
+
+![Alt text](jcmc-architecture.png "JCMC architecture")
+
 ### Technology
 
 The use of Java as the programming language is mandated by the DHL Training Module II, and cannot be deviated from. 
