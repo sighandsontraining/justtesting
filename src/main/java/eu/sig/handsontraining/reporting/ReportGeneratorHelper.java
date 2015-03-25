@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -37,15 +38,15 @@ public class ReportGeneratorHelper {
 
     private static List<Pair<String, Integer>> getMetricsAsList(Map<String, Map<String, Integer>> metricsMap,
         String metricKey) {
-        List<Pair<String, Integer>> metricList = new ArrayList<Pair<String, Integer>>();
+        List<Pair<String, Integer>> result = new ArrayList<Pair<String, Integer>>();
         Set<String> keySet = metricsMap.keySet();
         for (String key : keySet) {
             if (key.endsWith(".java") && metricsMap.get(key).containsKey(metricKey)) {
-                metricList.add(Pair.of(key, metricsMap.get(key).get(metricKey)));
+                result.add(Pair.of(key, metricsMap.get(key).get(metricKey)));
             }
         }
-        metricList.sort(new MetricListComparator());
-        return metricList;
+        Collections.sort(result, new MetricListComparator());
+        return result;
     }
 
     static void displayCodebaseValues(Map<String, Map<String, Integer>> metricsMap) {
