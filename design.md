@@ -1,10 +1,10 @@
-# Design of Java Code Metrics Calculator (Group ::X::)
+# Design of Java Code Metrics Calculator (The trainiers)
 
 ## Context
 
 ### Goal
 
-Objective of the Java Code Metrics Calculator (JCMC) is to be able to determine the maintainability of Java software. It will do so by providing various code metrics, such as lines of code. 
+Objective of the Java Code Metrics Calculator (JCMC) is to be able to determine the maintainability of Java software. It will do so by providing various code metrics, such as lines of code and McCabe Cylcomatic Complexity.
 
 ### Key requirements
 
@@ -25,6 +25,7 @@ The risk of this objective not being achieved is mitigated by instructors being 
 
 ## Solution
 
+the high-level architecture, containing the main components of our solution is discussed in the next section.
 ::Describe your solution here. Be sure to describe (important) decisions, their reasons, consequences and any trade-offs involved::
 
 ### High-level architecture
