@@ -1,5 +1,6 @@
 package eu.sig.handsontraining.reporting;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,8 +24,8 @@ public class ReportGenerator {
         metricKeys.add(metricKey);
     }
 
-    public void generateReports() throws IOException {
-        ReportGeneratorHelper.generateCsvFile(metricsMap, metricKeys);
+    public void generateReports(File outputFile) throws IOException {
+        ReportGeneratorHelper.generateCsvFile(metricsMap, metricKeys, outputFile);
         for (String metric : metricKeys) {
             ReportGeneratorHelper.displayTop10(metricsMap, metric);
         }

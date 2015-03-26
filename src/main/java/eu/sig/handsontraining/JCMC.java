@@ -6,6 +6,7 @@ import java.util.Map;
 
 import eu.sig.handsontraining.filetree.FileTree;
 import eu.sig.handsontraining.filetree.JavaFileFilter;
+import eu.sig.handsontraining.filetree.JavaTestFileFilter;
 import eu.sig.handsontraining.measurement.LinesOfCode;
 import eu.sig.handsontraining.measurement.McCabe;
 import eu.sig.handsontraining.measurement.MeasurementRunner;
@@ -23,13 +24,30 @@ public class JCMC {
             System.out.println(rootDirectory.getAbsolutePath() + " is not a directory!");
         }
         FileTree fileTree = new FileTree(rootDirectory);
+        generateProductionReport(fileTree);
+        generateTestReport(fileTree);
+    }
+
+    private static void generateProductionReport(FileTree fileTree) throws IOException {
+        System.out.println("Production code");
         MeasurementRunner measurementRunner = new MeasurementRunner(fileTree, JavaFileFilter.INSTANCE);
         Map<String, Integer> locMeasurements = measurementRunner.runMeasurement(new LinesOfCode());
         Map<String, Integer> mccabeMeasurements = measurementRunner.runMeasurement(new McCabe());
         ReportGenerator reportGenerator = new ReportGenerator();
         reportGenerator.addMeasurements(locMeasurements, LinesOfCode.METRIC_KEY);
         reportGenerator.addMeasurements(mccabeMeasurements, McCabe.METRIC_KEY);
-        reportGenerator.generateReports();
+        reportGenerator.generateReports(new File("metrics.csv"));
+    }
+
+    private static void generateTestReport(FileTree fileTree) throws IOException {
+        System.out.println("Test code");
+        MeasurementRunner measurementRunner = new MeasurementRunner(fileTree, JavaTestFileFilter.INSTANCE);
+        Map<String, Integer> locMeasurements = measurementRunner.runMeasurement(new LinesOfCode());
+        Map<String, Integer> mccabeMeasurements = measurementRunner.runMeasurement(new McCabe());
+        ReportGenerator reportGenerator = new ReportGenerator();
+        reportGenerator.addMeasurements(locMeasurements, LinesOfCode.METRIC_KEY);
+        reportGenerator.addMeasurements(mccabeMeasurements, McCabe.METRIC_KEY);
+        reportGenerator.generateReports(new File("test-metrics.csv"));
     }
 
 }

@@ -1,6 +1,7 @@
 *.class
 target/
 metrics.csv
+test-metrics.csv
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/

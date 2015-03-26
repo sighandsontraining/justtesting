@@ -10,6 +10,13 @@ public class JavaFileFilter implements FileFilter {
 
     @Override
     public boolean accept(File pathname) {
-        return pathname.getName().toLowerCase().endsWith(".java");
+        String filename = pathname.getAbsolutePath().toLowerCase();
+        if (!filename.endsWith(".java")) {
+            return false;
+        }
+        if (JavaTestFileFilter.isTestFile(pathname)) {
+            return false;
+        }
+        return true;
     }
 }

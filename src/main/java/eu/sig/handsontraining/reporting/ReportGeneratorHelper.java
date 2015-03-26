@@ -58,9 +58,8 @@ public class ReportGeneratorHelper {
         }
     }
 
-    static void generateCsvFile(Map<String, Map<String, Integer>> metricsMap, List<String> metricKeys)
+    static void generateCsvFile(Map<String, Map<String, Integer>> metricsMap, List<String> metricKeys, File outputFile)
         throws IOException {
-        File outputFile = new File("metrics.csv");
         FileWriter fileWriter = new FileWriter(outputFile);
         Set<String> keys = metricsMap.keySet();
         fileWriter.write("File," + StringUtils.join(",", metricKeys) + "\n");
