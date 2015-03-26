@@ -44,7 +44,9 @@ The main components of the architecture are:
   <dt>Measurement (eu.sig.handsontraining.measurement)<dt>
   <dd>Contains the metric calculators for Lines of Code and McCabe.</dd>
   <dt>Tokenizer (eu.sig.handsontraining.tokenizer)</dt>
-  <dd>Contains a Java
+  <dd>Contains a Java tokenizer based on CheckStyle.
+  <dt>Reporting (eu.sig.handsontraining.reporting)</dt>
+  <dd>Generates a CSV report file and top-10 lists for Lines of Code and McCabe of production and test code.</dd>
 </dl>
 
 ### Technology
