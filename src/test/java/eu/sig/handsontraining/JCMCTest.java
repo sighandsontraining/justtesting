@@ -1,5 +1,7 @@
 package eu.sig.handsontraining;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -27,6 +29,8 @@ public class JCMCTest {
         createTempFile(srcDir, "Foo.java", "public class Foo { }");
 
         JCMC.main(new String[] {root.getAbsolutePath()});
+
+        assertTrue(new File("metrics.csv").exists());
     }
 
     @Test
@@ -38,6 +42,8 @@ public class JCMCTest {
         createTempFile(srcDir, "Foo.java", "public class Foo {");
 
         JCMC.main(new String[] {root.getAbsolutePath()});
+
+        assertTrue(new File("metrics.csv").exists());
     }
 
 }

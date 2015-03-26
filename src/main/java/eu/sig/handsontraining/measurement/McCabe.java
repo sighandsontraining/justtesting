@@ -31,6 +31,7 @@ public class McCabe implements Measurement {
                 if (token.getType() == TokenTypes.QUESTION && previousTokenIsLessThan(tokens, token)) {
                     continue;
                 } else {
+                    System.out.println(token);
                     result++;
                 }
             }
