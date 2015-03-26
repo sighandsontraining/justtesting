@@ -28,10 +28,22 @@ public class McCabe implements Measurement {
         int result = 1;
         for (Token token : tokens) {
             if (MCCABE_TOKENS.contains(token.getType())) {
-                result++;
+                if (token.getType() == TokenTypes.QUESTION && previousTokenIsLessThan(tokens, token)) {
+                    continue;
+                } else {
+                    result++;
+                }
             }
         }
         return result;
+    }
+
+    private boolean previousTokenIsLessThan(List<Token> tokens, Token token) {
+        int index = tokens.indexOf(token);
+        if (index > 0 && tokens.get(index - 1).getType() == TokenTypes.LT) {
+            return true;
+        }
+        return false;
     }
 
 }

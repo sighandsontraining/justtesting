@@ -62,13 +62,13 @@ public class ReportGeneratorHelper {
         throws IOException {
         FileWriter fileWriter = new FileWriter(outputFile);
         Set<String> keys = metricsMap.keySet();
-        fileWriter.write("File," + StringUtils.join(",", metricKeys) + "\n");
+        fileWriter.write("File," + StringUtils.join(metricKeys, ",") + "\n");
         for (String key : keys) {
             List<String> metrics = new ArrayList<String>();
             for (String metricKey : metricKeys) {
                 metrics.add(metricsMap.get(key).get(metricKey).toString());
             }
-            fileWriter.write(key + "," + StringUtils.join(",", metrics) + "\n");
+            fileWriter.write(key + "," + StringUtils.join(metrics, ",") + "\n");
         }
         fileWriter.close();
     }

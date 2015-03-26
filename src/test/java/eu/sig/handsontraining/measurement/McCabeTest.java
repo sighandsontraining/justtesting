@@ -43,4 +43,11 @@ public class McCabeTest {
         assertEquals(2, measurement.measure(tokenize(code)));
     }
 
+    @Test
+    public void testDoNotCountGenericsQuestionmark() throws Exception {
+        Measurement measurement = new McCabe();
+
+        assertEquals(1, measurement.measure(tokenize("Class<?> clazz")));
+    }
+
 }
